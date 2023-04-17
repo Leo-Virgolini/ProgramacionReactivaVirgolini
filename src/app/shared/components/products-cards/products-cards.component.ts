@@ -15,7 +15,7 @@ export class ProductsCardsComponent implements OnInit, OnDestroy {
   carrito: number = 0;
 
   @ViewChild('busqueda')
-  input!: ElementRef<HTMLInputElement>;;
+  input!: ElementRef<HTMLInputElement>;
 
   constructor(private renderer: Renderer2, private productoService: ProductService) { }
 
