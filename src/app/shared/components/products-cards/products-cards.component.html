@@ -1,0 +1,52 @@
+<button mat-raised-button color="warn" [matBadge]="carrito" matBadgePosition="after" matBadgeColor="primary"
+    class="m-3">
+    <mat-icon>shopping_cart</mat-icon>
+    Carrito
+</button>
+
+<h2>CATEGORIAS</h2>
+<section>
+    <div class="grid p-2">
+        <ng-container *ngFor="let category of (categories$ | async)">
+            <button mat-raised-button color="primary" class="m-1 col-2 "
+                (click)="buscarProductosPorCategoria(category)">{{category}}</button>
+        </ng-container>
+    </div>
+</section>
+
+<mat-divider></mat-divider>
+
+<h2 class="mt-5">PRODUCTOS</h2>
+<form>
+    <mat-form-field class="w-full">
+        <mat-label>Buscar productos</mat-label>
+        <input matInput #busqueda (keyup)="buscarProductosPorTitulo($event)" placeholder="Ej. iPhone">
+    </mat-form-field>
+</form>
+
+<ng-container *ngIf="products?.length">
+    <p>Cantidad de resultados: {{products.length}}.</p>
+</ng-container>
+
+<ng-container *ngIf="products?.length === 0">
+    <p>No hubo resultados para '{{busqueda.value}}'.</p>
+</ng-container>
+
+<div class="grid">
+    <mat-card *ngFor="let product of products" class="example-card col-4">
+        <mat-card-header>
+            <img mat-card-avatar src="{{product.images[0]}}" class="example-header-image">
+            <mat-card-title>{{product.title}}</mat-card-title>
+            <mat-card-subtitle>${{product.price}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="{{product.images[0]}}" alt="{{product.title}}">
+        <mat-card-content>
+            <p>
+                {{product.description}}
+            </p>
+            <button mat-mini-fab color="warn" aria-label="Ordenar" (click)="agregarAlCarrito(1)">
+                <mat-icon>add_shopping_cart</mat-icon>
+            </button>
+        </mat-card-content>
+    </mat-card>
+</div>
